@@ -1,32 +1,33 @@
 #!/usr/bin/env python3
 
+from   itertools import repeat, chain
 import os
-from pathlib import Path
-from itertools import repeat, chain
-from typing import Union
+from   pathlib import Path
 import shutil
+from   typing import Union
+
 
 controls = """
 Actions=Play/Pause;Next;Previous;Stop
 
 [Desktop Action Play/Pause]
-Name[en]=Play/Pause
-Name[es]=Reproducir/Pausa
+Name[en]=▶︎ Play/Pause
+Name[es]=▶︎ Reproducir/Pausa
 Exec=dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
 [Desktop Action Next]
-Name[en]=Next
-Name[es]=Siguiente
+Name[en]=⏭︎ Next
+Name[es]=⏭︎ Siguiente
 Exec=dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 
 [Desktop Action Previous]
-Name[en]=Previous
-Name[es]=Anterior
+Name[en]=⏮ Previous
+Name[es]=⏮ Anterior
 Exec=dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 [Desktop Action Stop]
-Name[en]=Stop
-Name[es]=Parar
+Name[en]=⏹︎ Stop
+Name[es]=⏹ Parar
 Exec=dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
 """
 
@@ -54,7 +55,7 @@ def lookForExistingIn(path: Path, textToFind: str) -> Union[Path, None]:
 def addControls(path: Path):
     path.open('a').write(controls)
 
-dataPath = Path(os.environ.get("XDG_DATA_HOME", "~/.local/share")).expanduser()
+dataPath = Path(os.environ.get("XDG_DATA_HOME", "~/.local/share")).expanduser()/'applications'
 desktopFile = lookForExistingIn(dataPath, "Exec=spotify")
 
 if desktopFile is not None:
