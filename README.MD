@@ -11,3 +11,5 @@ Minimum version of Python: 3.8
 ```shell
 python3 main.py
 ```
+
+It will detect which version of Spotify is available and will copy the '.desktop' file into the user's location, appending the controls into the file.
